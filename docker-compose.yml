@@ -1,0 +1,14 @@
+services:
+  microsoft-integration-app:
+    container_name: dc-mic-int
+    build: .
+    ports:
+      - 3000:3000
+  mongodb:
+    image: mongo
+    ports: 
+      - 27017:27017
+    volumes:
+      - microsoft-integration-data:/data/db
+volumes: 
+  microsoft-integration-data:
