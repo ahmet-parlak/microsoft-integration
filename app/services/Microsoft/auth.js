@@ -4,6 +4,28 @@ const config = {
   headers: {},
 };
 
+exports.getToken = async (code) => {
+  const url = `https://login.microsoftonline.com/consumers/oauth2/v2.0/token`;
+  const params = new URLSearchParams();
+  params.append('client_id', process.env.CLIENT_ID);
+  params.append('redirect_uri', process.env.REDIRECT_URI);
+  params.append('scope', 'user.read');
+  params.append('code', code);
+  params.append('grant_type', 'authorization_code');
+  params.append('client_secret', process.env.CLIENT_SECRET);
+
+  return axios
+    .post(url, params)
+    .then(async (response) => response.data)
+    .catch((error) => {
+      console.error(error);
+      return {
+        status: 'error',
+        message: error?.response?.data ?? 'An error occurred',
+      };
+    });
+};
+
 exports.refreshToken = async (refresh_token) => {
   const url = `https://login.microsoftonline.com/consumers/oauth2/v2.0/token`;
   const params = new URLSearchParams();

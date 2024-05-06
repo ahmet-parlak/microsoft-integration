@@ -16,32 +16,19 @@ exports.oauth2Redirect = async (req, res) => {
     res.redirect(req?.query?.state ?? '/');
   } else {
     const code = req.query?.code ?? '';
-    const url = `https://login.microsoftonline.com/consumers/oauth2/v2.0/token`;
-    const params = new URLSearchParams();
-    params.append('client_id', process.env.CLIENT_ID);
-    params.append('redirect_uri', process.env.REDIRECT_URI);
-    params.append('scope', 'user.read');
-    params.append('code', code);
-    params.append('grant_type', 'authorization_code');
-    params.append('client_secret', process.env.CLIENT_SECRET);
+    const token = await microsoftAuthService.getToken(code);
 
-    await axios
-      .post(url, params)
-      .then(async (response) => {
-        const token = response.data;
+    if (token?.status == 'error') {
+      return res.status(403).json(token.message);
+    }
 
-        await User.findOne({ username: req.user.username })
-          .then((user) => {
-            user.microsoftToken = token;
-            user.save();
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+    await User.findOne({ username: req.user.username })
+      .then((user) => {
+        user.microsoftToken = token;
+        user.save();
       })
-      .catch((error) => {
-        console.error(error);
-        res.send('Somethings are wrong');
+      .catch((err) => {
+        console.log(err);
       });
 
     res.redirect(req?.query?.state ?? '/');
