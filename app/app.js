@@ -2,12 +2,13 @@ global.mainPath = __dirname;
 const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
+const authMiddleware = require('./middlewares/auth');
 const authRouter = require('./routes/authRoute');
 const microsoftAuthRouter = require('./routes/Microsoft/Auth/authRoute');
 const calendarRouter = require('./routes/Microsoft/Calendar/calendarRoute');
 const userRouter = require('./routes/Microsoft/User/userRoute');
 const mailRouter = require('./routes/Microsoft/Mail/mailRoute');
-const authMiddleware = require('./middlewares/auth');
+const driveRouter = require('./routes/Microsoft/Drive/driveRoute');
 
 //DB Connection
 mongoose
@@ -31,6 +32,7 @@ app.use('/microsoft/auth', microsoftAuthRouter);
 app.use('/microsoft/calendar', calendarRouter);
 app.use('/microsoft/user', userRouter);
 app.use('/microsoft/mail', mailRouter);
+app.use('/microsoft/drive', driveRouter);
 
 app.use((req, res) => {
   res.status(404).json();
