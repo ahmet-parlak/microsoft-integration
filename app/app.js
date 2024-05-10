@@ -9,6 +9,7 @@ const calendarRouter = require('./routes/Microsoft/Calendar/calendarRoute');
 const userRouter = require('./routes/Microsoft/User/userRoute');
 const mailRouter = require('./routes/Microsoft/Mail/mailRoute');
 const driveRouter = require('./routes/Microsoft/Drive/driveRoute');
+const noteRouter = require('./routes/Microsoft/Note/noteRoute');
 
 //DB Connection
 mongoose
@@ -33,6 +34,7 @@ app.use('/microsoft/calendar', calendarRouter);
 app.use('/microsoft/user', userRouter);
 app.use('/microsoft/mail', mailRouter);
 app.use('/microsoft/drive', driveRouter);
+app.use('/microsoft/note', noteRouter);
 
 app.use((req, res) => {
   res.status(404).json();

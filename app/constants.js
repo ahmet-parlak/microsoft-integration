@@ -5,6 +5,7 @@ module.exports = Object.freeze({
     'offline_access',
     'mail.readwrite',
     'mail.send',
-    'files.readwrite'
+    'files.readwrite',
+    'notes.readwrite',
   ],
 });
