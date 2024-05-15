@@ -7,5 +7,6 @@ module.exports = Object.freeze({
     'mail.send',
     'files.readwrite',
     'notes.readwrite',
+    'tasks.readwrite',
   ],
 });
