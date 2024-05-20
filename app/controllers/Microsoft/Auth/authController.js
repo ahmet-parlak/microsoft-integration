@@ -1,4 +1,3 @@
-const axios = require('axios');
 const User = require.main.require('./models/User');
 const microsoftAuthService = require.main.require('./services/Microsoft/auth');
 const constants = require.main.require('./constants');

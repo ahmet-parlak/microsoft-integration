@@ -13,6 +13,8 @@ const driveController = require.main.require(
   './controllers/Microsoft/Drive/driveController'
 );
 
+const workbookRouter = require('./workbookRoute');
+
 const router = express.Router();
 
 router.all('/*', microsoftAuthMiddleware, microsoftServiceMiddleware);
@@ -24,5 +26,7 @@ router.get('/items/:id/children', driveController.getChildren);
 router.post('/items/:id/children', driveController.createFolder);
 router.put('/items/:id/upload', driveMiddleware.upload, driveController.upload);
 router.get('/search', driveController.search);
+
+router.use('/items/:id/workbook', workbookRouter);
 
 module.exports = router;
