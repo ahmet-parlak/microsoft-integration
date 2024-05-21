@@ -6,10 +6,11 @@ exports.getCalendars = async () => {
 
   return axios
     .get(url, config)
-    .then((response) => response.data)
+    .then((response) => response)
     .catch((err) => {
-      console.log(err?.response?.data ?? err);
-      return null;
+      return (
+        err?.response ?? { status: 500, data: { message: 'An error occured' } }
+      );
     });
 };
 
@@ -18,10 +19,11 @@ exports.getCalendar = async (id) => {
 
   return axios
     .get(url, config)
-    .then((response) => response.data)
+    .then((response) => response)
     .catch((err) => {
-      console.log(err?.response?.data ?? err);
-      return null;
+      return (
+        err?.response ?? { status: 500, data: { message: 'An error occured' } }
+      );
     });
 };
 
@@ -30,10 +32,11 @@ exports.getEvents = async () => {
 
   return axios
     .get(url, config)
-    .then((response) => response.data)
+    .then((response) => response)
     .catch((err) => {
-      console.log(err?.response?.data ?? err);
-      return null;
+      return (
+        err?.response ?? { status: 500, data: { message: 'An error occured' } }
+      );
     });
 };
 
@@ -42,10 +45,11 @@ exports.getEvent = async (id) => {
 
   return axios
     .get(url, config)
-    .then((response) => response.data)
+    .then((response) => response)
     .catch((err) => {
-      console.log(err?.response?.data ?? err);
-      return null;
+      return (
+        err?.response ?? { status: 500, data: { message: 'An error occured' } }
+      );
     });
 };
 
@@ -54,10 +58,11 @@ exports.getCalendarEvents = (id) => {
 
   return axios
     .get(url, config)
-    .then((response) => response.data)
+    .then((response) => response)
     .catch((err) => {
-      console.log(err?.response?.data ?? err);
-      return null;
+      return (
+        err?.response ?? { status: 500, data: { message: 'An error occured' } }
+      );
     });
 };
 
@@ -66,10 +71,11 @@ exports.getCalendarEvent = (calendar_id, event_id) => {
 
   return axios
     .get(url, config)
-    .then((response) => response.data)
+    .then((response) => response)
     .catch((err) => {
-      console.log(err?.response?.data ?? err);
-      return null;
+      return (
+        err?.response ?? { status: 500, data: { message: 'An error occured' } }
+      );
     });
 };
 
@@ -77,10 +83,11 @@ exports.createCalendar = async (name) => {
   const url = 'https://graph.microsoft.com/v1.0/me/calendars';
   return axios
     .post(url, { name }, config)
-    .then((response) => response.data)
+    .then((response) => response)
     .catch((err) => {
-      console.log(err?.response?.data ?? err);
-      return null;
+      return (
+        err?.response ?? { status: 500, data: { message: 'An error occured' } }
+      );
     });
 };
 
@@ -88,20 +95,22 @@ exports.createEvent = async (event) => {
   const url = 'https://graph.microsoft.com/v1.0/me/calendar/events';
   return axios
     .post(url, event, config)
-    .then((response) => response.data)
+    .then((response) => response)
     .catch((err) => {
-      console.log(err?.response?.data ?? err);
-      return null;
+      return (
+        err?.response ?? { status: 500, data: { message: 'An error occured' } }
+      );
     });
 };
 exports.createCalendarEvent = async (id, event) => {
   const url = `https://graph.microsoft.com/v1.0/me/calendars/${id}/events`;
   return axios
     .post(url, event, config)
-    .then((response) => response.data)
+    .then((response) => response)
     .catch((err) => {
-      console.log(err?.response?.data ?? err);
-      return null;
+      return (
+        err?.response ?? { status: 500, data: { message: 'An error occured' } }
+      );
     });
 };
 
@@ -109,10 +118,11 @@ exports.patchCalendar = async (id, name) => {
   const url = `https://graph.microsoft.com/v1.0/me/calendars/${id}`;
   return axios
     .patch(url, { name }, config)
-    .then((response) => response.data)
+    .then((response) => response)
     .catch((err) => {
-      console.log(err?.response?.data ?? err);
-      return null;
+      return (
+        err?.response ?? { status: 500, data: { message: 'An error occured' } }
+      );
     });
 };
 
@@ -120,22 +130,34 @@ exports.deleteCalendar = async (id) => {
   const url = `https://graph.microsoft.com/v1.0/me/calendars/${id}`;
   return axios
     .delete(url, config)
-    .then((response) => response.status)
-    .catch((err) => err?.response?.status ?? 500);
+    .then((response) => response)
+    .catch((err) => {
+      return (
+        err?.response ?? { status: 500, data: { message: 'An error occured' } }
+      );
+    });
 };
 
 exports.deleteEvent = async (id) => {
   const url = `https://graph.microsoft.com/v1.0/me/events/${id}`;
   return axios
     .delete(url, config)
-    .then((response) => response.status)
-    .catch((err) => err?.response?.status ?? 500);
+    .then((response) => response)
+    .catch((err) => {
+      return (
+        err?.response ?? { status: 500, data: { message: 'An error occured' } }
+      );
+    });
 };
 
 exports.patchEvent = async (id, event) => {
   const url = `https://graph.microsoft.com/v1.0/me/events/${id}`;
   return axios
     .patch(url, event, config)
-    .then((response) => response.data)
-    .catch((err) => err?.response?.status ?? 500);
+    .then((response) => response)
+    .catch((err) => {
+      return (
+        err?.response ?? { status: 500, data: { message: 'An error occured' } }
+      );
+    });
 };

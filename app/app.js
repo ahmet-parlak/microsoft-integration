@@ -1,4 +1,3 @@
-global.mainPath = __dirname;
 const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();

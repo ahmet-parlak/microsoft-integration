@@ -1,29 +1,17 @@
 const calendarService = require.main.require('./services/Microsoft/calendar');
 
 exports.getEvents = async (req, res) => {
-  const events = await calendarService
-    .getEvents()
-    .then((events) => events)
-    .catch((err) => {
-      console.log(err);
-      return null;
-    });
+  const serviceRes = await calendarService.getEvents();
 
-  res.json(events);
+  res.status(serviceRes.status).json(serviceRes.data);
 };
 
 exports.getEvent = async (req, res) => {
   const id = req.params.id;
 
-  const event = await calendarService
-    .getEvent(id)
-    .then((event) => event)
-    .catch((err) => {
-      console.log(err);
-      return null;
-    });
+  const serviceRes = await calendarService.getEvent(id);
 
-  res.json(event);
+  res.status(serviceRes.status).json(serviceRes.data);
 };
 
 exports.post = async (req, res) => {
@@ -51,22 +39,17 @@ exports.post = async (req, res) => {
   }
   if (end == '') delete eventData.end;
 
-  const event = await calendarService
-    .createEvent(eventData)
-    .then((event) => event)
-    .catch((err) => {
-      console.log(err);
-      return null;
-    });
-  return res.json(event);
+  const serviceRes = await calendarService.createEvent(eventData);
+
+  res.status(serviceRes.status).json(serviceRes.data);
 };
 
 exports.getCalendarEvents = async (req, res) => {
   const id = req.params.id;
 
-  const events = await calendarService.getCalendarEvents(id);
+  const serviceRes = await calendarService.getCalendarEvents(id);
 
-  res.json(events);
+  res.status(serviceRes.status).json(serviceRes.data);
 };
 
 exports.postCalendarEvents = async (req, res) => {
@@ -95,30 +78,28 @@ exports.postCalendarEvents = async (req, res) => {
   }
   if (end == '') delete eventData.end;
 
-  const event = await calendarService
-    .createCalendarEvent(id, eventData)
-    .then((event) => event)
-    .catch((err) => {
-      console.log(err);
-      return null;
-    });
-  return res.json(event);
+  const serviceRes = await calendarService.createCalendarEvent(id, eventData);
+
+  res.status(serviceRes.status).json(serviceRes.data);
 };
 
 exports.getCalendarEvent = async (req, res) => {
   const calendar_id = req.params.calendar_id;
   const event_id = req.params.event_id;
 
-  const event = await calendarService.getCalendarEvent(calendar_id, event_id);
+  const serviceRes = await calendarService.getCalendarEvent(
+    calendar_id,
+    event_id
+  );
 
-  res.json(event);
+  res.status(serviceRes.status).json(serviceRes.data);
 };
 
 exports.delete = async (req, res) => {
   const id = req.params.id;
 
-  const status = await calendarService.deleteEvent(id);
-  res.status(status).json();
+  const serviceRes = await calendarService.deleteEvent(id);
+  res.status(serviceRes.status).json(serviceRes.data);
 };
 
 exports.patch = async (req, res) => {
@@ -150,12 +131,7 @@ exports.patch = async (req, res) => {
   if (end.length < 1) delete eventData.end;
   if (isAllDay.length < 1) delete eventData.end;
 
-  const event = await calendarService
-    .patchEvent(id, eventData)
-    .then((event) => event)
-    .catch((err) => {
-      console.log(err);
-      return null;
-    });
-  return res.json(event);
+  const serviceRes = await calendarService.patchEvent(id, eventData);
+
+  res.status(serviceRes.status).json(serviceRes.data);
 };

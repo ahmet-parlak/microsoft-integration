@@ -1,6 +1,7 @@
 const userService = require.main.require('./services/Microsoft/user');
 
 exports.get = async (req, res) => {
-  const user = await userService.getUser();
-  res.json(user);
+  const serviceRes = await userService.getUser();
+
+  res.status(serviceRes.status).json(serviceRes.data);
 };

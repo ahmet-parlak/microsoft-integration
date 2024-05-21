@@ -93,7 +93,7 @@ exports.deleteItem = async (item_id) => {
 };
 
 exports.search = async (q) => {
-  const url = `https://graph.microsoft.com/v1.0/me/drive/search(q='${q}')`;
+  const url = `https://graph.microsoft.com/v1.0/me/drive/root/search(q='${q}')`;
 
   return axios
     .get(url, config)

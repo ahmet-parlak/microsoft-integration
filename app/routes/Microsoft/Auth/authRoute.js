@@ -7,6 +7,6 @@ const authMiddleware = require.main.require('./middlewares/auth');
 const router = express.Router();
 
 router.get('/oauth2', authMiddleware, authController.oauth2);
-router.get('/oauth2-response', authMiddleware, authController.oauth2Redirect);
+router.get('/oauth2-response', authMiddleware, authController.oauth2Response);
 
 module.exports = router;

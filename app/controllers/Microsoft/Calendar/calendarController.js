@@ -1,38 +1,39 @@
 const calendarService = require.main.require('./services/Microsoft/calendar');
 
 exports.getAll = async (req, res) => {
-  const calendars = await calendarService.getCalendars();
-  return res.json(calendars);
+  const serviceRes = await calendarService.getCalendars();
+  res.status(serviceRes.status).json(serviceRes.data);
 };
 
 exports.get = async (req, res) => {
   const id = req.params.id;
 
-  const calendar = await calendarService.getCalendar(id);
+  const serviceRes = await calendarService.getCalendar(id);
 
-  res.json(calendar);
+  res.status(serviceRes.status).json(serviceRes.data);
 };
 
 exports.post = async (req, res) => {
   const name = req.body.name;
 
-  const calendar = await calendarService.createCalendar(name);
+  const serviceRes = await calendarService.createCalendar(name);
 
-  res.json(calendar);
+  res.status(serviceRes.status).json(serviceRes.data);
 };
 
 exports.patch = async (req, res) => {
   const id = req.params.id;
   const name = req.body.name;
 
-  const calendar = await calendarService.patchCalendar(id, name);
+  const serviceRes = await calendarService.patchCalendar(id, name);
 
-  res.json(calendar);
+  res.status(serviceRes.status).json(serviceRes.data);
 };
 
 exports.delete = async (req, res) => {
   const id = req.params.id;
 
-  const status = await calendarService.deleteCalendar(id);
-  res.status(status).json();
+  const serviceRes = await calendarService.deleteCalendar(id);
+
+  res.status(serviceRes.status).json(serviceRes.data);
 };

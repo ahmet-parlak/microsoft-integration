@@ -10,7 +10,7 @@ exports.oauth2 = (req, res) => {
   res.json({ status: 'success', redirect_url: url });
 };
 
-exports.oauth2Redirect = async (req, res) => {
+exports.oauth2Response= async (req, res) => {
   if (req.body.access_token) {
     res.redirect(req?.query?.state ?? '/');
   } else {

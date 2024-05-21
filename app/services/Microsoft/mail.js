@@ -4,10 +4,11 @@ const { config } = require('./auth');
 exports.getMessages = async () => {
   return axios
     .get('https://graph.microsoft.com/v1.0/me/messages', config)
-    .then((response) => response.data)
+    .then((response) => response)
     .catch((err) => {
-      console.log(err);
-      return err?.response?.data ?? null;
+      return (
+        err?.response ?? { status: 500, data: { message: 'An error occured' } }
+      );
     });
 };
 
@@ -16,7 +17,9 @@ exports.sendMail = async (message) => {
     .post('https://graph.microsoft.com/v1.0/me/sendMail', message, config)
     .then((response) => response)
     .catch((err) => {
-      return err?.response ?? { status: 500 };
+      return (
+        err?.response ?? { status: 500, data: { message: 'An error occured' } }
+      );
     });
 };
 
@@ -25,7 +28,9 @@ exports.getMessage = async (id) => {
     .get(`https://graph.microsoft.com/v1.0/me/messages/${id}`, config)
     .then((response) => response)
     .catch((err) => {
-      return err?.response ?? { status: 500 };
+      return (
+        err?.response ?? { status: 500, data: { message: 'An error occured' } }
+      );
     });
 };
 
@@ -34,6 +39,8 @@ exports.deleteMessage = async (id) => {
     .delete(`https://graph.microsoft.com/v1.0/me/messages/${id}`, config)
     .then((response) => response)
     .catch((err) => {
-      return err?.response ?? { status: 500 };
+      return (
+        err?.response ?? { status: 500, data: { message: 'An error occured' } }
+      );
     });
 };

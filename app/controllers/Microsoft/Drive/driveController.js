@@ -2,30 +2,35 @@ const driveService = require.main.require('./services/Microsoft/drive');
 const fs = require('fs');
 
 exports.get = async (req, res) => {
-  const drive = await driveService.getDrive();
+  const serviceRes = await driveService.getDrive();
 
-  res.status(drive.status).json(drive.data);
+  res.status(serviceRes.status).json(serviceRes.data);
 };
 
 exports.getRoot = async (req, res) => {
-  const root = await driveService.getRoot();
+  const serviceRes = await driveService.getRoot();
 
-  res.status(root.status).json(root.data);
+  res.status(serviceRes.status).json(serviceRes.data);
 };
 
 exports.getChildren = async (req, res) => {
   const item_id = req.params.id;
-  const children = await driveService.getChildren(item_id);
-  res.status(children.status).json(children.data);
+
+  const serviceRes = await driveService.getChildren(item_id);
+
+  res.status(serviceRes.status).json(serviceRes.data);
 };
 
 exports.createFolder = async (req, res) => {
   const parent_item_id = req.params.id;
   const folder_name = req.body.folder_name;
 
-  const folder = await driveService.createFolder(parent_item_id, folder_name);
+  const serviceRes = await driveService.createFolder(
+    parent_item_id,
+    folder_name
+  );
 
-  res.status(folder.status).json(folder.data);
+  res.status(serviceRes.status).json(serviceRes.data);
 };
 
 exports.upload = async (req, res) => {
@@ -39,23 +44,23 @@ exports.upload = async (req, res) => {
     data: fileStream,
   };
 
-  const uploadStatus = await driveService.upload(fileData);
+  const serviceRes = await driveService.upload(fileData);
   fs.unlinkSync(file.path); //remove file
-  res.status(uploadStatus.status).json(uploadStatus.data);
+  res.status(serviceRes.status).json(serviceRes.data);
 };
 
 exports.deleteItem = async (req, res) => {
   const item_id = req.params.id;
 
-  const deleteRes = await driveService.deleteItem(item_id);
+  const serviceRes = await driveService.deleteItem(item_id);
 
-  res.status(deleteRes.status).json(deleteRes.data);
+  res.status(serviceRes.status).json(serviceRes.data);
 };
 
 exports.search = async (req, res) => {
   const q = req.query.q;
 
-  const searchRes = await driveService.search(q);
+  const serviceRes = await driveService.search(q);
 
-  res.status(searchRes.status).json(searchRes.data);
+  res.status(serviceRes.status).json(serviceRes.data);
 };
