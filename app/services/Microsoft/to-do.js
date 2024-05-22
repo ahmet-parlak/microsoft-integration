@@ -19,6 +19,7 @@ exports.createTaskList = async (name) => {
 
   const taskList = { displayName: name };
 
+  config.headers['Content-Type'] = 'application/json';
   return axios
     .post(url, taskList, config)
     .then((response) => response)
@@ -46,6 +47,7 @@ exports.updateTaskList = async (id, name) => {
   const url = `https://graph.microsoft.com/v1.0/me/todo/lists/${id}`;
   const taskList = { displayName: name };
 
+  config.headers['Content-Type'] = 'application/json';
   return axios
     .patch(url, taskList, config)
     .then((response) => response)
@@ -95,6 +97,8 @@ exports.getTask = async (list_id, task_id) => {
 
 exports.createTask = async (taskListId, task) => {
   const url = `https://graph.microsoft.com/v1.0/me/todo/lists/${taskListId}/tasks`;
+
+  config.headers['Content-Type'] = 'application/json';
   return axios
     .post(url, task, config)
     .then((response) => response)
@@ -108,6 +112,7 @@ exports.createTask = async (taskListId, task) => {
 exports.updateTask = async (taskListId, taskId, task) => {
   const url = `https://graph.microsoft.com/v1.0/me/todo/lists/${taskListId}/tasks/${taskId}`;
 
+  config.headers['Content-Type'] = 'application/json';
   return axios
     .patch(url, task, config)
     .then((response) => response)
@@ -144,6 +149,8 @@ exports.getChecklistItems = async (taskListId, taskId) => {
 
 exports.createChecklistItem = async (taskListId, taskId, checklistItem) => {
   const url = `https://graph.microsoft.com/v1.0/me/todo/lists/${taskListId}/tasks/${taskId}/checklistItems`;
+
+  config.headers['Content-Type'] = 'application/json';
   return axios
     .post(url, checklistItem, config)
     .then((response) => response)
@@ -173,6 +180,8 @@ exports.updateChecklistItem = async (
   checklistItem
 ) => {
   const url = `https://graph.microsoft.com/v1.0/me/todo/lists/${taskListId}/tasks/${taskId}/checklistItems/${checklistItemId}`;
+
+  config.headers['Content-Type'] = 'application/json';
   return axios
     .patch(url, checklistItem, config)
     .then((response) => response)

@@ -13,6 +13,7 @@ exports.getMessages = async () => {
 };
 
 exports.sendMail = async (message) => {
+  config.headers['Content-Type'] = 'application/json';
   return axios
     .post('https://graph.microsoft.com/v1.0/me/sendMail', message, config)
     .then((response) => response)

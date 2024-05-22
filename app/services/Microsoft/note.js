@@ -19,6 +19,9 @@ exports.createNotebook = async (name) => {
   const notebook = {
     displayName: name,
   };
+
+  config.headers['Content-Type'] = 'application/json';
+
   return axios
     .post(url, notebook, config)
     .then((response) => response)
